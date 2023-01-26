@@ -4,14 +4,12 @@ signal hit_enemy(other)
 
 export var walking = false
 export var jumping = false
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export var steps = 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	steps = 0
 
 var next_frame = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,6 +20,7 @@ func _process(delta):
 			$Sprite.frame = 5
 		elif walking:
 			$Sprite.frame = wrapi($Sprite.frame + 1, 0, 4)
+			steps += 1
 
 
 func _on_Player_body_entered(body):

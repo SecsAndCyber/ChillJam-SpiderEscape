@@ -31,10 +31,10 @@ var next_level = 0
 func _process(delta):
 	update()
 	if not dead:
-		score_box.text = "Score: %s" % (int(score))
+		score_box.text = "Score: %s\nSteps: %s" % [int(score), $SpiderBox/Player.steps]
 		$SpiderBox/WebPoint/Drone.scale = score / 20
 	else:
-		score_box.text = "RESTART\nScore: %s" % (int(score))
+		score_box.text = "RESTART\nScore: %s\nSteps: %s" % [int(score), $SpiderBox/Player.steps]
 	if next_level < OS.get_system_time_msecs():
 		next_level = OS.get_system_time_msecs() + 1000 * 15
 		screen_speed += 150
@@ -78,7 +78,6 @@ func _on_Controller_tapped():
 		if dead_taps > 2:
 			get_tree().change_scene("res://Scenes/GameBoard.tscn")
 
-
 func _on_Controller_hold_started():
 	if not dead:
 		if not $SpiderBox/Player.jumping and fall_distance < 2:
@@ -86,12 +85,10 @@ func _on_Controller_hold_started():
 		else:
 			can_climb = false
 
-
 func _on_Controller_hold_ended(_duration):
 	if not dead:
 		dropping = false
 		can_climb = true
-
 
 func _on_Player_hit_enemy(other):
 	if other.get_name() == "Score":
@@ -112,8 +109,6 @@ func _on_Player_hit_enemy(other):
 		$SpiderBox/Player/Sprite.modulate = Color(.25, 0, 0)
 	if other.get_name() == "Floor":
 		dropping = false
-
-
 
 func _on_Button_pressed():
 	get_tree().change_scene("res://Scenes/GameBoard.tscn")

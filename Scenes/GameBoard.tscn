@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/GameBoard.gd" type="Script" id=2]
@@ -8,6 +8,13 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 258.5, 108.25 )
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource( 2 )
@@ -35,8 +42,8 @@ margin_bottom = 48.0
 [node name="Score" type="RichTextLabel" parent="ScrollingMap"]
 margin_left = 312.0
 margin_top = 8.0
-margin_right = 400.0
-margin_bottom = 48.0
+margin_right = 412.0
+margin_bottom = 68.0
 rect_scale = Vector2( 2, 2 )
 mouse_filter = 2
 text = "Score: 0"
@@ -47,7 +54,7 @@ deselect_on_focus_loss_enabled = false
 margin_left = 128.0
 margin_top = 256.0
 margin_right = 256.0
-margin_bottom = 320.0
+margin_bottom = 352.0
 rect_scale = Vector2( 2, 2 )
 
 [node name="Controller" parent="." instance=ExtResource( 3 )]
@@ -78,9 +85,18 @@ scale = 0.25
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 4 )]
 
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2( 0, -240 )
+scale = Vector2( 0.257812, 1256 )
+normal = SubResource( 3 )
+shape_centered = false
+shape_visible = false
+
 [connection signal="pressed" from="ScrollingMap/RestartButton" to="." method="_on_Button_pressed"]
 [connection signal="hold_ended" from="Controller" to="." method="_on_Controller_hold_ended"]
 [connection signal="hold_started" from="Controller" to="." method="_on_Controller_hold_started"]
 [connection signal="tapped" from="Controller" to="." method="_on_Controller_tapped"]
 [connection signal="body_entered" from="SpiderBox/Player" to="." method="_on_Player_body_entered"]
 [connection signal="hit_enemy" from="SpiderBox/Player" to="." method="_on_Player_hit_enemy"]
+[connection signal="pressed" from="TouchScreenButton" to="Controller" method="_on_TouchScreenButton_pressed"]
+[connection signal="released" from="TouchScreenButton" to="Controller" method="_on_TouchScreenButton_released"]
