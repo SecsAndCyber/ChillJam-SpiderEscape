@@ -15,11 +15,13 @@ func _ready():
 
 var next_frame = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if pivot > rotation_degrees:
 		rotation_degrees = clamp(rotation_degrees + (climp_speed*90)*delta, 0, pivot)
 	else:
 		rotation_degrees = clamp(rotation_degrees - (climp_speed*90)*delta, pivot, 90)
+
+func _process(delta):
 	if next_frame < OS.get_system_time_msecs():
 		next_frame = OS.get_system_time_msecs() + 250
 		if jumping:

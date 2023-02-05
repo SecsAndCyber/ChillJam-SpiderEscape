@@ -62,6 +62,7 @@ func _on_TouchScreenButton_released():
 			button_hold_time = 0
 			button_hold_start_time = 0
 	elif button_pressed:
+		get_node("/root/GameBoard/TouchScreenButton/ScoreSound").play()
 		emit_signal("tapped")
 		button_pressed = false
 		button_hold_time = 0

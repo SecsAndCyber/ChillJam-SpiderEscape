@@ -94,7 +94,8 @@ volume_db = -5.0
 
 [node name="ScoreSound" type="AudioStreamPlayer" parent="SpiderBox"]
 stream = ExtResource( 9 )
-volume_db = -10.0
+volume_db = -25.0
+pitch_scale = 2.0
 
 [node name="SpottedSound" type="AudioStreamPlayer" parent="SpiderBox"]
 stream = ExtResource( 10 )
@@ -114,6 +115,11 @@ scale = Vector2( 0.257812, 1256 )
 normal = SubResource( 3 )
 shape_centered = false
 shape_visible = false
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="TouchScreenButton"]
+stream = ExtResource( 9 )
+volume_db = -10.0
+pitch_scale = 4.0
 
 [connection signal="pressed" from="ScrollingMap/RestartButton" to="." method="_on_Button_pressed"]
 [connection signal="hold_ended" from="Controller" to="." method="_on_Controller_hold_ended"]

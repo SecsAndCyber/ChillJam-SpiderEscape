@@ -31,24 +31,25 @@ func _ready():
 
 var next_frame = 0
 var next_level = 0
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 
-func _physics_process(delta):
+func _process(delta):
+	update()
 	if not dead:
+		score_box.text = "Score: %s\nSteps: %s" % [int(score), $SpiderBox/Player.steps]
+	else:
+		score_box.text = "RESTART\nScore: %s\nSteps: %s" % [int(score), $SpiderBox/Player.steps]
+	
+func _physics_process(delta):
+	if not $ParallaxBackground/BackgroundSound.playing:
+		$ParallaxBackground/BackgroundSound.play()
+	if not dead:
+		$SpiderBox/Drone.scale = clamp(score / 20,0, 1.5)
+		$ParallaxBackground/BackgroundSound.pitch_scale = clamp(score / 20, .01, 2)
+		
 		$ParallaxBackground.get_node("DroneLayer").motion_offset.x -= (crawl_speed + drone_speed) * delta
 		if not $SpiderBox/Player.jumping:
 			$ParallaxBackground.get_node("ParallaxLayer").motion_offset.x -= (crawl_speed) * delta
 			
-func _process(delta):
-	update()
-	if not $ParallaxBackground/BackgroundSound.playing:
-		$ParallaxBackground/BackgroundSound.play()
-	if not dead:
-		score_box.text = "Score: %s\nSteps: %s" % [int(score), $SpiderBox/Player.steps]
-		$SpiderBox/Drone.scale = clamp(score / 20,0, 1.75)
-		$ParallaxBackground/BackgroundSound.pitch_scale = clamp(score / 20, .01, 2)
-	else:
-		score_box.text = "RESTART\nScore: %s\nSteps: %s" % [int(score), $SpiderBox/Player.steps]
 	if next_level < OS.get_system_time_msecs():
 		next_level = OS.get_system_time_msecs() + 1000 * 15
 		crawl_speed += 10
@@ -118,7 +119,7 @@ var dead_taps = 0
 func _on_Controller_tapped():
 	if not dead:
 		$SpiderBox/Player.pivot = 90
-		fall_distance = 75
+		fall_distance = 80
 		can_climb = true
 	else:
 		dead_taps += 1
