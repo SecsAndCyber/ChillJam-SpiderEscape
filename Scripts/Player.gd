@@ -5,7 +5,9 @@ signal hit_enemy(other)
 export var walking = false
 export var jumping = false
 export var steps = 0
+export var pivot = 0
 
+var climp_speed = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +16,10 @@ func _ready():
 var next_frame = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if pivot > rotation_degrees:
+		rotation_degrees = clamp(rotation_degrees + (climp_speed*90)*delta, 0, pivot)
+	else:
+		rotation_degrees = clamp(rotation_degrees - (climp_speed*90)*delta, pivot, 90)
 	if next_frame < OS.get_system_time_msecs():
 		next_frame = OS.get_system_time_msecs() + 250
 		if jumping:

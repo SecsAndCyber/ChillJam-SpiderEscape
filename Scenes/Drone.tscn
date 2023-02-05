@@ -47,7 +47,7 @@ script = ExtResource( 2 )
 
 [node name="Drone" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
-frame = 2
+frame = 3
 playing = true
 centered = false
 flip_h = true
@@ -64,8 +64,14 @@ polygon = PoolVector2Array( 25, 10, 37, 18, 44, 34, 37, 40, 25, 41, 12, 39, 7, 3
 position = Vector2( 22.5, 28.5 )
 shape = SubResource( 7 )
 
-[node name="Polygon2D" type="Polygon2D" parent="Drone"]
+[node name="WarningLight" type="Polygon2D" parent="Drone"]
 position = Vector2( 32, 20 )
+z_index = 30
 color = Color( 0.843137, 0.109804, 0.109804, 1 )
 texture = SubResource( 9 )
 polygon = PoolVector2Array( -208, -20, -13, 6, -208, 28 )
+
+[node name="Warning" type="Area2D" parent="Drone/WarningLight"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Drone/WarningLight/Warning"]
+polygon = PoolVector2Array( -80, -4, -208, -20, -208, 28, -80, 12 )
