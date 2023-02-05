@@ -109,7 +109,6 @@ pitch_scale = 0.5
 autoplay = true
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-visible = false
 position = Vector2( 0, -240 )
 scale = Vector2( 0.257812, 1256 )
 normal = SubResource( 3 )
